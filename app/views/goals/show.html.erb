@@ -17,19 +17,20 @@
   <% @goal.comments.each do |gc| %>
   <li>
     <%= gc.body %> (<%= gc.commenter.username %>)
-    <%= button_to "Remove Comment", goal_comment_url(gc), method: :delete %>
+    <%= button_to "Remove Comment", comment_url(gc), method: :delete %>
   </li>
   <% end %>
 </ul>
 
 <% if logged_in? %>
 <h4>Add a comment</h4>
-<form action="<%= goal_comments_url %>" method="post">
-  <input type="hidden" name="goal_comment[goal_id]" value="<%= @goal.id %>">
+<form action="<%= comments_url %>" method="post">
+  <input type="hidden" name="comment[commentable_id]" value="<%= @goal.id %>">
+  <input type="hidden" name="comment[commentable_type]" value="Goal">
   <%= form_auth_token %>
 
   <label for="comment">Comment
-    <textarea name="goal_comment[body]" rows="8" cols="80"></textarea>
+    <textarea name="comment[body]" rows="8" cols="80"></textarea>
   </label>
 
   <input type="submit" value="Add Comment">

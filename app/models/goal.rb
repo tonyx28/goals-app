@@ -17,5 +17,5 @@ class Goal < ActiveRecord::Base
 
   belongs_to :user
 
-  has_many :comments, class_name: :GoalComment
+  has_many :comments, as: :commentable
 end

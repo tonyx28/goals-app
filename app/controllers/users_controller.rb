@@ -16,10 +16,10 @@ class UsersController < ApplicationController
 
   def show
     if current_user.id == params[:id]
-      @user = User.includes(user_comments: :commenter).includes(:goals).find(params[:id])
+      @user = User.includes(comments: :commenter).includes(:goals).find(params[:id])
     else
       @user = User
-                .includes(user_comments: :commenter)
+                .includes(comments: :commenter)
                 .includes(:goals)
                 .where("goals.is_private = ?", false)
                 .references(:goals)

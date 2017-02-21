@@ -19,8 +19,7 @@ class User < ActiveRecord::Base
   attr_reader :password
 
   has_many :goals
-  has_many :user_comments, class_name: :UserComment, primary_key: :id, foreign_key: :commented_on_id
-  has_many :comments_on_other_users, class_name: :UserComment, primary_key: :id, foreign_key: :commenter_id
+  has_many :comments, as: :commentable
 
   after_initialize :ensure_session_token
 

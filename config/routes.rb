@@ -5,6 +5,5 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create, :show]
   resources :goals
 
-  resources :user_comments, only: [:create, :destroy]
-  resources :goal_comments, only: [:create, :destroy]
+  resources :comments, only: [:create, :destroy]
 end
