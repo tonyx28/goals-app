@@ -1,0 +1,39 @@
+<h2><%= @user.username %></h2>
+
+<h4>Goals</h4>
+<ul>
+  <% if @user.goals.length == 0 %>
+  <li>(no goals)</li>
+  <% else %>
+  <% @user.goals.each do |goal| %>
+  <li><%= link_to goal.title, goal_url(goal) %></li>
+  <% end %>
+  <% end %>
+</ul>
+
+<h4>Comments</h4>
+<ul>
+  <% @user.user_comments.each do |uc| %>
+  <li>
+    <%= uc.body %> (<%= uc.commenter.username %>)
+    <%= button_to "Remove Comment", user_comment_url(uc), method: :delete %>
+  </li>
+  <% end %>
+</ul>
+
+<% if logged_in? %>
+<h4>Add a comment</h4>
+<form action="<%= user_comments_url %>" method="post">
+  <input type="hidden" name="user_comment[commented_on_id]" value="<%= @user.id %>">
+  <%= form_auth_token %>
+
+  <label for="comment">Comment
+    <textarea name="user_comment[body]" rows="8" cols="80"></textarea>
+  </label>
+
+  <input type="submit" value="Add Comment">
+</form>
+<% end %>
+
+<%= link_to "Add a Goal", new_goal_url %>
+<%= link_to "All Goals", goals_url %>
